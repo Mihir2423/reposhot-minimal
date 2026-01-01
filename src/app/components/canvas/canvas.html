@@ -3,10 +3,17 @@
 >
   <div
     #cardElement
-    class="relative w-full bg-[#121214] border border-[#1f1f22] rounded-lg p-8 flex flex-col md:flex-row gap-8 items-center shadow-2xl"
+    [class.bg-[#121214]]="getResolvedTheme() === 'dark'"
+    [class.border-[#1f1f22]]="getResolvedTheme() === 'dark'"
+    [class.bg-white]="getResolvedTheme() === 'light'"
+    [class.border-zinc-200]="getResolvedTheme() === 'light'"
+    [class.shadow-black]="getResolvedTheme() === 'dark'"
+    [class.shadow-zinc-200]="getResolvedTheme() === 'light'"
+    class="relative w-full border rounded-lg p-8 flex flex-col md:flex-row gap-8 items-center shadow-2xl transition-colors duration-300"
   >
     <div
-      class="absolute top-6 left-8 w-2.5 h-2.5 bg-[#ff5f56] rounded-full shadow-[0_0_10px_#ff5f56]"
+      class="absolute top-6 left-8 w-2.5 h-2.5 bg-[#ff5f56] rounded-full"
+      [style.box-shadow]="getResolvedTheme() === 'dark' ? '0 0 10px #ff5f56' : '0 0 8px rgba(255,95,86,0.4)'"
     ></div>
 
     <div class="flex-1 space-y-6 mt-4">
@@ -15,14 +22,20 @@
           >{{ canvasData().owner }}/{{ canvasData().name }}</span
         >
         <span
-          class="border border-zinc-800 px-2 py-0.5 rounded text-[10px] text-zinc-400 font-bold uppercase"
+          [class.border-zinc-800]="getResolvedTheme() === 'dark'"
+          [class.text-zinc-400]="getResolvedTheme() === 'dark'"
+          [class.border-zinc-200]="getResolvedTheme() === 'light'"
+          [class.text-zinc-500]="getResolvedTheme() === 'light'"
+          class="border px-2 py-0.5 rounded text-[10px] font-bold uppercase"
         >
           {{ canvasData().stars }} Stars
         </span>
       </div>
 
       <h1
-        class="text-2xl md:text-3xl font-bold text-zinc-100 leading-tight uppercase tracking-tighter break-words"
+        [class.text-zinc-100]="getResolvedTheme() === 'dark'"
+        [class.text-zinc-900]="getResolvedTheme() === 'light'"
+        class="text-2xl md:text-3xl font-bold leading-tight uppercase tracking-tighter break-words"
       >
         {{ canvasData().description || 'No description provided for this repository' }}
       </h1>
@@ -31,7 +44,11 @@
         Updated 2h ago // {{ canvasData().issues }} Issues
       </div>
 
-      <div class="pt-6 border-t border-white/5">
+      <div
+        [class.border-white/5]="getResolvedTheme() === 'dark'"
+        [class.border-zinc-100]="getResolvedTheme() === 'light'"
+        class="pt-6 border-t"
+      >
         <p class="text-[10px] uppercase text-zinc-600 mb-4 tracking-[0.2em]">System Contributors</p>
         <div class="flex items-center gap-6">
           <div class="flex items-center gap-2">
@@ -41,28 +58,40 @@
               class="w-5 h-5 rounded-sm grayscale opacity-50"
               alt=""
             />
-            <span class="text-[10px] text-zinc-500">{{ canvasData().owner }}</span>
+            <span class="text-[10px] text-zinc-500 uppercase">{{ canvasData().owner }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="p-1 border border-zinc-800 bg-black shadow-2xl shrink-0">
+    <div
+      [class.border-zinc-800]="getResolvedTheme() === 'dark'"
+      [class.border-zinc-200]="getResolvedTheme() === 'light'"
+      class="p-1 border bg-black shadow-2xl shrink-0"
+    >
       <img
         [src]="canvasData().avatarUrl"
         crossorigin="anonymous"
         alt="Profile"
-        class="w-48 h-48 md:w-56 md:h-56 object-cover grayscale-80 contrast-125 brightness-75"
+        [class.brightness-75]="getResolvedTheme() === 'dark'"
+        [class.brightness-110]="getResolvedTheme() === 'light'"
+        class="w-48 h-48 md:w-56 md:h-56 object-cover grayscale contrast-125"
       />
     </div>
   </div>
 
   <button
     (click)="downloadImage()"
-    class="group relative px-8 py-4 bg-zinc-100 hover:bg-white text-black font-bold uppercase text-xs tracking-[0.3em] transition-all active:scale-95"
+    [class.bg-zinc-100]="getResolvedTheme() === 'dark'"
+    [class.text-black]="getResolvedTheme() === 'dark'"
+    [class.bg-zinc-900]="getResolvedTheme() === 'light'"
+    [class.text-white]="getResolvedTheme() === 'light'"
+    class="group relative px-8 py-4 font-bold uppercase text-xs tracking-[0.3em] transition-all active:scale-95 shadow-xl"
   >
     <div
-      class="absolute -bottom-1 -right-1 w-full h-full border border-zinc-500 -z-10 group-hover:bottom-0 group-hover:right-0 transition-all"
+      [class.border-zinc-500]="getResolvedTheme() === 'dark'"
+      [class.border-zinc-900]="getResolvedTheme() === 'light'"
+      class="absolute -bottom-1 -right-1 w-full h-full border -z-10 group-hover:bottom-0 group-hover:right-0 transition-all"
     ></div>
     Download_Snapshot.exe
   </button>
