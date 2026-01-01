@@ -72,24 +72,20 @@ export class Canvas implements AfterViewInit {
     const data = this.canvasData();
     const isDark = this.getResolvedTheme() === 'dark';
 
-    // 1. Calculate Scale Factor based on screen width
     const actualWidth = Math.min(this.BASE_WIDTH, window.innerWidth - 32);
     const scaleFactor = actualWidth / this.BASE_WIDTH;
     const actualHeight = this.BASE_HEIGHT * scaleFactor;
 
-    // 2. Set physical canvas size (for sharpness)
     this.canvas.width = actualWidth * this.dpr;
     this.canvas.height = actualHeight * this.dpr;
 
-    // 3. Set display size (CSS)
     this.canvas.style.width = `${actualWidth}px`;
     this.canvas.style.height = `${actualHeight}px`;
 
-    // 4. Reset and apply Scale: DPR (for retina) * ScaleFactor (for responsiveness)
+    // Reset and apply Scale: DPR (for retina) * ScaleFactor (for responsiveness)
     this.ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transformations
     this.ctx.scale(this.dpr * scaleFactor, this.dpr * scaleFactor);
 
-    // From here on, all coordinates use BASE_WIDTH (650) and BASE_HEIGHT (350)
     const width = this.BASE_WIDTH;
     const height = this.BASE_HEIGHT;
 
